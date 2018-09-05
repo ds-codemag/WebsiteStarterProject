@@ -1,0 +1,102 @@
+// -----------------------------------------------------------------------------
+// Print
+// -----------------------------------------------------------------------------
+
+@if $print-styles {
+    @media print {
+        *,
+        *::before,
+        *::after {
+            background: transparent !important;
+            box-shadow: none !important;
+            color: $black !important;
+            text-shadow: none !important;
+        }
+
+        a,
+        a:visited {
+            text-decoration: underline !important;
+        }
+
+        a[href]::after {
+            content: ' (' attr(href) ')' !important;
+        }
+
+        abbr[title]::after {
+            content: ' (' attr(title) ')' !important;
+        }
+
+        a[href^="#"]::after,
+        a[href^="javascript:"]::after {
+            content: '' !important;
+        }
+
+        pre {
+            white-space: pre-wrap !important;
+        }
+
+        pre,
+        blockquote {
+            border: 1px solid $black !important;
+            page-break-inside: avoid !important;
+        }
+
+        thead {
+            display: table-header-group !important;
+        }
+
+        tr,
+        img {
+            page-break-inside: avoid !important;
+        }
+
+        p,
+        h2,
+        h3 {
+            orphans: 3 !important;
+            widows: 3 !important;
+        }
+
+        h2,
+        h3 {
+            page-break-after: avoid !important;
+        }
+
+        // Utilities for toggling `display` in print
+        .d-print-none {
+            display: none !important;
+        }
+
+        .d-print-inline {
+            display: inline !important;
+        }
+
+        .d-print-inline-block {
+            display: inline-block !important;
+        }
+
+        .d-print-block {
+            display: block !important;
+        }
+
+        .d-print-table {
+            display: table !important;
+        }
+
+        .d-print-table-row {
+            display: table-row !important;
+        }
+
+        .d-print-table-cell {
+            display: table-cell !important;
+        }
+
+        .d-print-flex {
+            display: flex !important;
+        }
+
+        .d-print-inline-flex {
+            display: inline-flex !important;
+        }
+    }
+}

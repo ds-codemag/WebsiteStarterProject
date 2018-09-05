@@ -1,0 +1,138 @@
+// -----------------------------------------------------------------------------
+// Mixin
+// -----------------------------------------------------------------------------
+
+// - Text hide
+// - Text truncate
+// - Clearfix
+// - Font size in REM
+// - Set in REM
+// - Object-fit (IE support)
+// - ul reset
+// - Media max width
+// - Media min width
+// - Media between width
+
+// ------------------------------------------------------------------- Text hide
+
+@mixin text-hide() {
+    font: 0/0 a;
+    border: none;
+    background-color: transparent;
+    color: transparent;
+    text-shadow: none;
+}
+
+// --------------------------------------------------------------- Text truncate
+
+@mixin text-truncate() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// -------------------------------------------------------------------- Clearfix
+
+@mixin clearfix() {
+    &::after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+// ------------------------------------------------------------ Font size in rem
+
+@mixin font-size-px-to-rem($size-value: $font-size, $line: $size-value * 1.5) {
+    font-size: ($size-value) + px;
+    font-size: ($size-value / $font-size) + rem;
+    line-height: ($line) + px;
+    line-height: ($line / $font-size) + rem;
+}
+
+// ------------------------------------------------------------------ Set in rem
+
+@mixin set-in-rem($property, $values) {
+    $px: ();
+    $rem: ();
+    @each $value in $values {
+        @if $value == 0 or $value == auto {
+            $px: append($px, $value);
+            $rem: append($rem, $value);
+        } @else {
+            $px: append($px, $value * 1px);
+            $rem: append($rem, ($value / $font-size * 1rem));
+        }
+    }
+    #{$property}: $px;
+    #{$property}: $rem;
+}
+
+// ------------------------------------------------------- Object-fit IE support
+
+@mixin object-fit($fit: fill, $position: null) {
+    -o-object-fit: $fit;
+    object-fit: $fit;
+    @if $position {
+        -o-object-position: $position;
+        object-position: $position;
+        font-family: 'object-fit: #{$fit}; object-position: #{$position}';
+    } @else {
+        font-family: 'object-fit: #{$fit}';
+    }
+}
+
+// -------------------------------------------------------------------- ul reset
+
+@mixin ul-reset {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+// ------------------------------------------------------------- Media max width
+
+@mixin media-max-width($value, $breakpoints: $grid-breakpoints) {
+    $max: if(type-of($value) == string, breakpoint-max($value, $breakpoints), $value);
+    @if $max {
+        @media (max-width: $max) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+// ------------------------------------------------------------- Media min width
+
+@mixin media-min-width($value, $breakpoints: $grid-breakpoints) {
+    $min: if(type-of($value) == string, breakpoint-min($value, $breakpoints), $value);
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+// --------------------------------------------------------- Media between width
+
+@mixin media-between-width($lower, $upper, $breakpoints: $grid-breakpoints) {
+    $min: if(type-of($lower) == string, breakpoint-min($lower, $breakpoints), $lower);
+    $max: if(type-of($upper) == string, breakpoint-max($upper, $breakpoints), $upper);
+
+    @if $min != null and $max != null {
+        @media (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+    } @else if $max == null {
+        @include media-min-width($lower, $breakpoints) {
+            @content;
+        }
+    } @else if $min == null {
+        @include media-max-width($upper, $breakpoints) {
+            @content;
+        }
+    }
+}
