@@ -1,4 +1,6 @@
-// Grid from Bootstrap v4.0.0
+// -----------------------------------------------------------------------------
+// Grid from Bootstrapb 4.2.1
+// -----------------------------------------------------------------------------
 
 // Evaluate $grid-breakpoints map
 $prev-key: null;
@@ -20,7 +22,7 @@ $first-value: nth($values, 1);
     @warn 'First breakpoint must start at 0, but starts at #{$first-value}.';
 }
 
-// Fluid container
+// ------------------------------------------------------------- Fluid container
 // Full width layout container
 %container-fluid,
 .container-fluid {
@@ -31,18 +33,18 @@ $first-value: nth($values, 1);
     padding-left: ($grid-gutter-width / 2);
 }
 
-// Container
+// ------------------------------------------------------------------- Container
 // Container with max width for different screen sizes
 .container {
     @extend %container-fluid;
     @each $breakpoint, $container-max-width in $container-max-widths {
-        @include media-min-width($breakpoint, $grid-breakpoints) {
+        @include media-min-breakpoint($breakpoint, $grid-breakpoints) {
             max-width: $container-max-width;
         }
     }
 }
 
-// Row
+// ------------------------------------------------------------------------- Row
 // Displays grid and clears left and right padding
 .row {
     display: flex;
@@ -65,11 +67,8 @@ $first-value: nth($values, 1);
     }
 }
 
-// Columns
-// Common styles for small and large grid columns
-
-// Common properties for all breakpoints
-%grid-column {
+// --------------------------------------------------------------------- Columns
+%grid-column { // Common properties for all breakpoints
     position: relative;
     width: 100%;
     min-height: 1px; // Prevent columns from collapsing when empty
@@ -92,7 +91,7 @@ $first-value: nth($values, 1);
         @extend %grid-column;
     }
 
-    @include media-min-width($breakpoint, $grid-breakpoints) {
+    @include media-min-breakpoint($breakpoint, $grid-breakpoints) {
         // Provide basic `.col-{bp}` classes for equal-width flexbox columns
         .col#{$infix} {
             flex-basis: 0;
@@ -103,7 +102,7 @@ $first-value: nth($values, 1);
         .col#{$infix}-auto {
             flex: 0 0 auto;
             width: auto;
-            max-width: none; // Reset earlier grid tiers
+            max-width: 100%; // Reset earlier grid tiers
         }
 
         @for $i from 1 through $grid-columns {
@@ -135,179 +134,6 @@ $first-value: nth($values, 1);
                     margin-left: if(($i / $grid-columns) == 0, 0, percentage($i / $grid-columns));
                 }
             }
-        }
-    }
-}
-
-// Utilities for common `display` values
-@each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-min-width($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-        .d#{$infix}-none {
-            display: none;
-        }
-
-        .d#{$infix}-inline {
-            display: inline;
-        }
-
-        .d#{$infix}-inline-block {
-            display: inline-block;
-        }
-
-        .d#{$infix}-block {
-            display: block;
-        }
-
-        .d#{$infix}-table {
-            display: table;
-        }
-
-        .d#{$infix}-table-row {
-            display: table-row;
-        }
-
-        .d#{$infix}-table-cell {
-            display: table-cell;
-        }
-
-        .d#{$infix}-flex {
-            display: flex;
-        }
-
-        .d#{$infix}-inline-flex {
-            display: inline-flex;
-        }
-    }
-}
-
-// Flex variation
-// Custom styles for additional flex alignment options
-@each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-min-width($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-        // Flex direction
-        .flex#{$infix}-row {
-            flex-direction: row;
-        }
-
-        .flex#{$infix}-column {
-            flex-direction: column;
-        }
-
-        .flex#{$infix}-row-reverse {
-            flex-direction: row-reverse;
-        }
-
-        .flex#{$infix}-column-reverse {
-            flex-direction: column-reverse;
-        }
-
-        // Flex wrap
-        .flex#{$infix}-wrap {
-            flex-wrap: wrap;
-        }
-
-        .flex#{$infix}-nowrap {
-            flex-wrap: nowrap;
-        }
-
-        .flex#{$infix}-wrap-reverse {
-            flex-wrap: wrap-reverse;
-        }
-
-        // Justify content
-        .justify-content#{$infix}-start {
-            justify-content: flex-start;
-        }
-
-        .justify-content#{$infix}-end {
-            justify-content: flex-end;
-        }
-
-        .justify-content#{$infix}-center {
-            justify-content: center;
-        }
-
-        .justify-content#{$infix}-between {
-            justify-content: space-between;
-        }
-
-        .justify-content#{$infix}-around {
-            justify-content: space-around;
-        }
-
-        // Align items
-        .align-items#{$infix}-start {
-            align-items: flex-start;
-        }
-
-        .align-items#{$infix}-end {
-            align-items: flex-end;
-        }
-
-        .align-items#{$infix}-center {
-            align-items: center;
-        }
-
-        .align-items#{$infix}-baseline {
-            align-items: baseline;
-        }
-
-        .align-items#{$infix}-stretch {
-            align-items: stretch;
-        }
-
-        // Align content
-        .align-content#{$infix}-start {
-            align-content: flex-start;
-        }
-
-        .align-content#{$infix}-end {
-            align-content: flex-end;
-        }
-
-        .align-content#{$infix}-center {
-            align-content: center;
-        }
-
-        .align-content#{$infix}-between {
-            align-content: space-between;
-        }
-
-        .align-content#{$infix}-around {
-            align-content: space-around;
-        }
-
-        .align-content#{$infix}-stretch {
-            align-content: stretch;
-        }
-
-        // Align self item
-        .align-self#{$infix}-auto {
-            align-self: auto;
-        }
-
-        .align-self#{$infix}-start {
-            align-self: flex-start;
-        }
-
-        .align-self#{$infix}-end {
-            align-self: flex-end;
-        }
-
-        .align-self#{$infix}-center {
-            align-self: center;
-        }
-
-        .align-self#{$infix}-baseline {
-            align-self: baseline;
-        }
-
-        .align-self#{$infix}-stretch {
-            align-self: stretch;
         }
     }
 }

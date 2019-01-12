@@ -1,23 +1,20 @@
 @import
 
 // Base
+'base/fonts',
+'base/variables',
 'base/presets',
 'base/functions',
 'base/mixins',
-'base/fonts',
-'base/animations',
-'base/base',
+'base/normalize',
 'base/typography',
+'base/base',
 
 // Layout
 'layout/grid',
-'layout/navigation',
-'layout/header',
-'layout/footer',
 
 // Components
-'components/buttons',
-'components/forms',
+'components/alert',
 
 // Helper classes
 'base/helper-classes',

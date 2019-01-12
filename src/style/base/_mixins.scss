@@ -1,38 +1,111 @@
 // -----------------------------------------------------------------------------
-// Mixin
+// Mixins
+//
+// - media-max-breakpoint
+// - media-min-breakpoint
+// - media-between-breakpoints
+// - media-only-breakpoint
+// - size
+// - text-hidden
+// - text-truncate
+// - clearfix
+// - font-size
+// - set-in-rem
+// - object-fit (IE support)
+// - ul-reset
+// - gradient-x
+// - gradient-y
+// - gradient-directional
+// - gradient-radial
 // -----------------------------------------------------------------------------
 
-// - Text hide
-// - Text truncate
-// - Clearfix
-// - Font size in REM
-// - Set in REM
-// - Object-fit (IE support)
-// - ul reset
-// - Media max width
-// - Media min width
-// - Media between width
-
-// ------------------------------------------------------------------- Text hide
-
-@mixin text-hide() {
-    font: 0/0 a;
-    border: none;
-    background-color: transparent;
-    color: transparent;
-    text-shadow: none;
+// -------------------------------------------------------- media-max-breakpoint
+@mixin media-max-breakpoint($value, $breakpoints: $grid-breakpoints) {
+    $max: if(type-of($value) == string, breakpoint-max($value, $breakpoints), $value);
+    @if $max {
+        @media (max-width: $max) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
 }
 
-// --------------------------------------------------------------- Text truncate
+// -------------------------------------------------------- media-min-breakpoint
+@mixin media-min-breakpoint($value, $breakpoints: $grid-breakpoints) {
+    $min: if(type-of($value) == string, breakpoint-min($value, $breakpoints), $value);
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
 
+// --------------------------------------------------- media-between-breakpoints
+@mixin media-between-breakpoints($lower, $upper, $breakpoints: $grid-breakpoints) {
+    $min: if(type-of($lower) == string, breakpoint-min($lower, $breakpoints), $lower);
+    $max: if(type-of($upper) == string, breakpoint-max($upper, $breakpoints), $upper);
+
+    @if $min != null and $max != null {
+        @media (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+    } @else if $max == null {
+        @include media-min-breakpoint($lower, $breakpoints) {
+            @content;
+        }
+    } @else if $min == null {
+        @include media-max-breakpoint($upper, $breakpoints) {
+            @content;
+        }
+    }
+}
+
+// ------------------------------------------------------- media-only-breakpoint
+@mixin media-only-breakpoint($name, $breakpoints: $grid-breakpoints) {
+    $min: breakpoint-min($name, $breakpoints);
+    $max: breakpoint-max($name, $breakpoints);
+
+    @if $min != null and $max != null {
+        @media (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+    } @else if $max == null {
+        @include media-min-breakpoint($name, $breakpoints) {
+            @content;
+        }
+    } @else if $min == null {
+        @include media-max-breakpoint($name, $breakpoints) {
+            @content;
+        }
+    }
+}
+
+// ------------------------------------------------------------------------ size
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+// ----------------------------------------------------------------- text-hidden
+@mixin text-hidden() {
+    font: 0/0 a !important;
+    border: none !important;
+    background-color: transparent !important;
+    color: transparent !important;
+    text-shadow: none !important;
+}
+
+// --------------------------------------------------------------- text-truncate
 @mixin text-truncate() {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-// -------------------------------------------------------------------- Clearfix
-
+// -------------------------------------------------------------------- clearfix
 @mixin clearfix() {
     &::after {
         content: '';
@@ -41,35 +114,28 @@
     }
 }
 
-// ------------------------------------------------------------ Font size in rem
-
-@mixin font-size-px-to-rem($size-value: $font-size, $line: $size-value * 1.5) {
-    font-size: ($size-value) + px;
+// ------------------------------------------------------------------- font-size
+@mixin font-size($size-value: $font-size, $line: 0) {
     font-size: ($size-value / $font-size) + rem;
-    line-height: ($line) + px;
-    line-height: ($line / $font-size) + rem;
+    @if $line != 0 {
+        line-height: $line
+    };
 }
 
-// ------------------------------------------------------------------ Set in rem
-
+// ------------------------------------------------------------------ set-in-rem
 @mixin set-in-rem($property, $values) {
-    $px: ();
     $rem: ();
     @each $value in $values {
         @if $value == 0 or $value == auto {
-            $px: append($px, $value);
             $rem: append($rem, $value);
         } @else {
-            $px: append($px, $value * 1px);
             $rem: append($rem, ($value / $font-size * 1rem));
         }
     }
-    #{$property}: $px;
     #{$property}: $rem;
 }
 
-// ------------------------------------------------------- Object-fit IE support
-
+// ----------------------------------------------------- object-fit (IE support)
 @mixin object-fit($fit: fill, $position: null) {
     -o-object-fit: $fit;
     object-fit: $fit;
@@ -82,57 +148,33 @@
     }
 }
 
-// -------------------------------------------------------------------- ul reset
-
+// -------------------------------------------------------------------- ul-reset
 @mixin ul-reset {
     margin: 0;
     padding: 0;
-    list-style-type: none;
+    list-style: none;
 }
 
-// ------------------------------------------------------------- Media max width
-
-@mixin media-max-width($value, $breakpoints: $grid-breakpoints) {
-    $max: if(type-of($value) == string, breakpoint-max($value, $breakpoints), $value);
-    @if $max {
-        @media (max-width: $max) {
-            @content;
-        }
-    } @else {
-        @content;
-    }
+// ------------------------------------------------------------------ gradient-x
+@mixin gradient-x($start-color: $black, $end-color: $white, $start-percent: 0%, $end-percent: 100%) {
+    background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent);
+    background-repeat: repeat-x;
 }
 
-// ------------------------------------------------------------- Media min width
-
-@mixin media-min-width($value, $breakpoints: $grid-breakpoints) {
-    $min: if(type-of($value) == string, breakpoint-min($value, $breakpoints), $value);
-    @if $min {
-        @media (min-width: $min) {
-            @content;
-        }
-    } @else {
-        @content;
-    }
+// ------------------------------------------------------------------ gradient-y
+@mixin gradient-y($start-color: $black, $end-color: $white, $start-percent: 0%, $end-percent: 100%) {
+    background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
+    background-repeat: repeat-x;
 }
 
-// --------------------------------------------------------- Media between width
+// -------------------------------------------------------- gradient-directional
+@mixin gradient-directional($start-color: $black, $end-color: $white, $deg: 45deg) {
+    background-image: linear-gradient($deg, $start-color, $end-color);
+    background-repeat: repeat-x;
+}
 
-@mixin media-between-width($lower, $upper, $breakpoints: $grid-breakpoints) {
-    $min: if(type-of($lower) == string, breakpoint-min($lower, $breakpoints), $lower);
-    $max: if(type-of($upper) == string, breakpoint-max($upper, $breakpoints), $upper);
-
-    @if $min != null and $max != null {
-        @media (min-width: $min) and (max-width: $max) {
-            @content;
-        }
-    } @else if $max == null {
-        @include media-min-width($lower, $breakpoints) {
-            @content;
-        }
-    } @else if $min == null {
-        @include media-max-width($upper, $breakpoints) {
-            @content;
-        }
-    }
+// ------------------------------------------------------------- gradient-radial
+@mixin gradient-radial($inner-color: $black, $outer-color: $white) {
+    background-image: radial-gradient(circle, $inner-color, $outer-color);
+    background-repeat: no-repeat;
 }

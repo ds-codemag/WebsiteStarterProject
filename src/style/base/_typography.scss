@@ -6,104 +6,119 @@
 // -----------------------------------------------------------------------------
 
 // ------------------------------------------------------------ Basic Typography
-
-html {
-    font-size: 100%;
-    line-height: 1.15;
-    text-size-adjust: 100%;
-}
-
-body {
-    color: $text;
-    font-family: $text-font-regular;
-    font-size: 1rem;
+// Headings
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    @include set-in-rem(margin, 0 0 24);
+    font-family: $heading-font;
+    line-height: $heading-line-height;
     font-weight: normal;
-    line-height: 1.5rem;
-    text-align: left;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    margin: 0 0 1.5rem;
-    font-family: $heading-font-bold;
-    font-weight: bolder;
+h1, .h1 {
+    font-size: $h1-size / $font-size + rem;
 }
 
-h1,
-h2 {
-    line-height: 3rem;
+h2, .h2 {
+    font-size: $h2-size / $font-size + rem;
 }
 
-h3,
-h4,
-h5,
-h6 {
-    line-height: 1.5rem;
+h3, .h3 {
+    font-size: $h3-size / $font-size + rem;
 }
 
-h1 {
-    font-size: 3rem;
+h4, .h4 {
+    font-size: $h4-size / $font-size + rem;
 }
 
-h2 {
-    font-size: 2.25rem;
+h5, .h5 {
+    font-size: $h5-size / $font-size + rem;
 }
 
-h3 {
-    font-size: 1.5rem;
+h6, .h6 {
+    font-size: $h6-size / $font-size + rem;
 }
 
-h4 {
-    font-size: 1.3125rem;
-}
-
-h5 {
-    font-size: 1.125rem;
-}
-
-h6 {
-    font-size: 1rem;
-}
-
+// Horizontal line
 hr {
-    display: block;
+    box-sizing: content-box;
     width: 100%;
-    height: 1px;
-    margin: 1.5rem 0;
-    padding: 0;
+    height: 0;
+    @include set-in-rem(margin, 24 0);
+    overflow: visible;
     border: none;
-    background-color: $black;
+    border-top: 1px solid $border;
 }
 
-p,
-blockquote {
+// Paragraph
+p {
     max-width: 100%;
-    margin: 0 0 1.5rem;
-    hyphens: manual; // Use &shy; in HTML for manual hyphens
+    @include set-in-rem(margin, 0 0 24);
 }
 
-abbr[title],
-abbr[data-original-title] {
-    border-bottom: none;
-    text-decoration: underline dotted;
-    cursor: help;
+// Links
+a {
+    background-color: transparent;
+    outline: none;
+    color: inherit;
+    text-decoration: none;
+
+    &.link {
+        color: $primary;
+
+        &:hover {
+            opacity: .75;
+        }
+    }
 }
 
-address {
-    margin-bottom: 1.5rem;
-    font-style: normal;
-    line-height: inherit;
+// Code
+pre,
+code,
+kbd,
+samp {
+    font-family: monospace, monospace;
+    font-size: 1em;
 }
 
+code {
+    word-break: break-word;
+    opacity: .75;
+
+    a > & {
+        color: inherit;
+    }
+}
+
+kbd {
+    padding: .2rem .4rem;
+    background-color: $text;
+    border-radius: 3px;
+    color: $white;
+    font-size: 87.5%;
+
+    kbd {
+        padding: 0;
+        font-family: $base-font-bold;
+        font-size: 100%;
+    }
+}
+
+pre {
+    display: block;
+    @include set-in-rem(margin, 0 0 24);
+    overflow-y: auto;
+
+    code {
+        word-break: normal;
+    }
+}
+
+// Lists
 ol,
 ul,
 dl {
-    margin: 0 0 1.5rem;
-    padding: 0 0 0 1.125em;
+    @include set-in-rem(margin, 0 0 24);
 
     ol,
     ul,
@@ -112,31 +127,55 @@ dl {
     }
 }
 
-dt,
-li {
-    margin: 0;
+ol,
+ul {
+    padding: 0 0 0 1.125em;
 }
 
 dt {
-    font-family: $text-font-bold;
+    font-family: $base-font-bold;
+    font-weight: normal;
 }
 
 dd {
-    margin: 0 0 .5rem;
+    @include set-in-rem(margin, 0 0 8);
 }
 
-dfn {
-    font-style: italic;
+// Table
+caption {
+    @include set-in-rem(padding, 10 0);
+    text-align: left;
+    caption-side: bottom;
+}
+
+th {
+    text-align: inherit;
+}
+
+// Semantic elements
+abbr[title],
+abbr[data-original-title] {
+    border-bottom: none;
+    text-decoration: underline dotted;
+    text-decoration-skip-ink: none;
+    cursor: help;
 }
 
 b,
 strong {
-    font-family: $text-font-bold;
+    font-family: $base-font-bold;
     font-weight: normal;
 }
 
-small {
+small,
+.small {
     font-size: 80%;
+}
+
+mark,
+.mark {
+    padding: .25em;
+    background-color: $primary;
 }
 
 sub,
@@ -148,112 +187,39 @@ sup {
 }
 
 sub {
-    bottom: -.25em;
+    bottom: -0.25em;
 }
 
 sup {
-    top: -.5em;
+    top: -0.5em;
 }
 
-a {
-    outline: none;
-    background-color: transparent;
-    color: $link;
-    text-decoration: none;
-
-    &:hover {
-        color: darken($link, 10);
-    }
+dfn {
+    font-style: italic;
 }
 
-mark {
-    padding: .2em;
-}
-
-pre,
-code,
-kbd,
-samp {
-    font-family: monospace, monospace;
-    font-size: 1em;
-}
-
-code {
-    color: lighten($text, 30);
-    font-size: 87.5%;
-    word-break: break-word;
-}
-
-kbd {
-    padding: .2rem .4rem;
-    border-radius: 3px;
-    background-color: $text;
-    color: $white;
-    font-size: 87.5%;
-
-    kbd {
-        padding: 0;
-        font-size: 100%;
-        font-weight: 700;
-    }
-}
-
-pre {
-    display: block;
-    margin: 0 0 1.5rem;
-    overflow: auto;
-    color: $text;
-    font-size: 87.5%;
-
-    code {
-        color: inherit;
-        font-size: inherit;
-        word-break: normal;
-    }
-}
-
-figure {
-    margin: 0 0 1.5rem;
-}
-
-caption {
-    padding: .75rem 0;
-    color: $text;
-    font-family: $text-font-bold;
-    text-align: left;
-}
-
-legend {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 0 1.5rem;
-    padding: 0;
-    color: inherit;
+// Address
+address {
+    @include set-in-rem(margin, 0 0 24);
+    font-style: normal;
     line-height: inherit;
-    white-space: normal;
 }
 
-::selection {
-    background: $black;
-    color: $white;
-    text-shadow: none;
-}
-
-// ----------------------------------------------------------- Custom Typography
-
+// Blockquote
+blockquote,
 .blockquote {
-    p {
-        margin: 0;
-    }
+    max-width: 100%;
+    @include set-in-rem(margin, 0 0 24);
 
     &__footer {
         display: block;
-        margin: 0;
         font-size: 80%;
+        opacity: .75;
 
         &::before {
-            content: '\2014 \00A0';
+            content: "\2014\00A0";
         }
     }
 }
+
+// ----------------------------------------------------------- Custom Typography

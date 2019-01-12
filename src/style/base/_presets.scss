@@ -1,81 +1,91 @@
 // -----------------------------------------------------------------------------
 // Presets
 //
-// - Theme settings
+// - Font settings
+// - Template colors
+// - Template settings
 // - Grid settings
-// - Other styles settings
-// - Colors
 // -----------------------------------------------------------------------------
 
-// -------------------------------------------------------------- Theme settings
+// --------------------------------------------------------------- Font settings
+$base-font-bold: -apple-system, BlinkMacSystemFont, "OpenSans Bold", sans-serif !default;
+$base-font-regular: -apple-system, BlinkMacSystemFont, "OpenSans Regular", sans-serif !default;
+$base-font-light: -apple-system, BlinkMacSystemFont, "OpenSans Light", sans-serif !default;
 
-$font-size:             16 !default;
+$font-size:                 16 !default;
+$line-height:               1.5 !default;
 
-$heading-font-bold: 'Montserrat Bold', sans-serif !default;
-$heading-font-regular: 'Montserrat Regular', sans-serif !default;
-$heading-font-light: 'Montserrat Light', sans-serif !default;
+$heading-font:              $base-font-bold !default;
+$heading-line-height:       1.25 !default;
 
-$text-font-bold: 'OpenSans Bold', sans-serif !default;
-$text-font-regular: 'OpenSans Regular', sans-serif !default;
-$text-font-light: 'OpenSans Light', sans-serif !default;
+$h1-size:                   $font-size * 2.5 !default;
+$h2-size:                   $font-size * 2 !default;
+$h3-size:                   $font-size * 1.75 !default;
+$h4-size:                   $font-size * 1.5 !default;
+$h5-size:                   $font-size * 1.25 !default;
+$h6-size:                   $font-size !default;
 
-$print-styles:          true !default;
-$sizing-classes:        true !default;
-$float-classes:         true !default;
-$text-classes:          true !default;
-$spacing-classes:       true !default;
+// ------------------------------------------------------------- Template colors
+$body-bg:                   $gray-100 !default;
+
+$text:                      $gray-900 !default;
+$light-text:                $gray-600 !default;
+
+$border:                    $gray-300 !default;
+
+$primary:                   $red !default;
+$secondary:                 $gray-200 !default;
+
+$success:                   $green !default;
+$warning:                   $orange !default;
+$danger:                    $red !default;
+$info:                      $blue !default;
+
+$light:                     $gray-100 !default;
+$dark:                      $gray-800 !default;
+
+// ----------------------------------------------------------- Template settings
+$print-styles:              true !default;
+$sizing-classes:            true !default;
+$text-classes:              true !default;
+$spacing-classes:           true !default;
+$flex-classes:              true !default;
 
 // Spacers for margin and padding classes
-$spacer:                1rem !default;
+$spacer:                    1rem !default;
+
 $spacers:               (
-                         0: 0,
-                         1: ($spacer * .25),
-                         2: ($spacer * .5),
-                         3: $spacer,
-                         4: ($spacer * 1.5),
-                         5: ($spacer * 3)
+                            0: 0,
+                            1: ($spacer * .25),
+                            2: ($spacer * .5),
+                            3: $spacer,
+                            4: ($spacer * 1.5),
+                            5: ($spacer * 3)
                         ) !default;
 
 // Sizes map for `.h-*` and `.w-*` classes.
 $sizes:                 (
-                         25: 25%,
-                         50: 50%,
-                         75: 75%,
-                         100: 100%
+                            25: 25%,
+                            50: 50%,
+                            75: 75%,
+                            100: 100%
                         ) !default;
 
 // --------------------------------------------------------------- Grid settings
+$grid-columns:              12 !default; // Number of columns
+$grid-gutter-width:         30px !default; // Space between columns
 
-$grid-columns:          12 !default; // Number of columns
-$grid-gutter-width:     20px !default; // Width of space between columns
-$grid-breakpoints:      (    // Breakpoints for media queries
-                         xs: 0,
-                         sm: 576px,
-                         md: 768px,
-                         lg: 992px,
-                         xl: 1200px
-                        ) !default;
-$container-max-widths:  (    // Container max widths
-                         sm: 540px,
-                         md: 720px,
-                         lg: 960px,
-                         xl: 1140px
+$grid-breakpoints:      (   // Breakpoints for media queries
+                            xs: 0,
+                            sm: 576px,
+                            md: 768px,
+                            lg: 992px,
+                            xl: 1200px
                         ) !default;
 
-// ------------------------------------------------------- Other styles settings
-
-$zindex-dropdown:       1000 !default;
-$zindex-sticky:         1020 !default;
-$zindex-fixed:          1030 !default;
-$zindex-modal-backdrop: 1040 !default;
-$zindex-modal:          1050 !default;
-$zindex-popover:        1060 !default;
-$zindex-tooltip:        1070 !default;
-
-// ---------------------------------------------------------------------- Colors
-
-$black:                 #000000 !default;
-$white:                 #FFFFFF !default;
-
-$text:                  #212529 !default;
-$link:                  #007BFF !default;
+$container-max-widths:  (   // Container max widths
+                            sm: 540px,
+                            md: 720px,
+                            lg: 960px,
+                            xl: 1140px
+                        ) !default;

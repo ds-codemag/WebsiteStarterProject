@@ -7,40 +7,38 @@ const merge = require('webpack-merge');
 // Plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Variables
-const devMode = process.env.NODE_ENV !== 'production'
-
+const devMode = process.env.NODE_ENV !== 'production';
+const entry = () => {
+    return glob.sync('./src/js/*.js').reduce(
+        function (prev, curr) {
+            prev[path.basename(curr, '.js')] = curr;
+            return prev;
+        }, {}
+    );
+};
 // Common configuration
 module.exports = {
-    target: "web",
+    target: 'web',
     mode: process.env.NODE_ENV,
     devtool: devMode ? 'inline-source-map' : 'none',
-
-    entry: () => {
-        return glob.sync('./src/js/*.js').reduce(
-            function (prev, curr) {
-                prev[path.basename(curr, '.js')] = curr;
-                return prev;
-            }, {}
-        );
-    },
-
+    entry: entry(),
     output: {
-        filename: devMode ? 'js/[name].bundle.js' : 'js/[name].[hash].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        filename: devMode ? 'js/[name].bundle.js' : 'js/[name].bundle.js?[hash]',
+        path: path.resolve(__dirname, 'build')
     },
-
     module: {
         rules: [
             { // Loading JS
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader",
+                    loader: 'babel-loader',
                     options: {
                         cacheDirectory: true,
                         presets: ['@babel/preset-env'],
@@ -48,19 +46,37 @@ module.exports = {
                     }
                 }
             },
-
-            { // Loading Styles
+            { // Loading CSS
+                test: /\.css$/,
+                use: [
+                    devMode ? {
+                        loader: 'style-loader',
+                        options: {sourceMap: true}
+                    } : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ]
+            },
+            { // Loading SCSS
                 test: /\.scss$/,
                 use: [
-                    devMode ? { loader: "style-loader", options: { sourceMap: true } } : MiniCssExtractPlugin.loader,
+                    devMode ? {
+                        loader: 'style-loader',
+                        options: {sourceMap: true}
+                    } : MiniCssExtractPlugin.loader,
                     {
-                        loader: "css-loader", options: {
+                        loader: 'css-loader',
+                        options: {
                             sourceMap: true,
-                            importLoaders: 1
+                            importLoaders: 2
                         }
-                    },
-                    {
-                        loader: 'postcss-loader', options: {
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
                             sourceMap: true,
                             plugins: [
                                 require('autoprefixer')({
@@ -68,37 +84,54 @@ module.exports = {
                                 })
                             ]
                         }
-                    },
-                    {
-                        loader: "sass-loader", options: {
+                    }, {
+                        loader: 'sass-loader',
+                        options: {
                             sourceMap: true
                         }
                     }
                 ]
             },
-
             { // Loading Images
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
                     {
-                        loader: 'file-loader', options: {
-                            filename: devMode ? '[path][name].[ext]' : '[hash].[ext]',
+                        loader: 'file-loader',
+                        options: {
+                            name() {
+                                if (devMode) {
+                                    return '[name].[ext]';
+                                }
+                                return '[name].[ext]?[hash]';
+                            },
                             outputPath: 'images/'
                         }
-                    },
-                    {
-                        loader: 'html-loader'
-                    },
-                    'image-webpack-loader'
+                    }, {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            svgo: {
+                                plugins: [
+                                    {
+                                        cleanupIDs: false
+                                    }
+                                ]
+                            }
+                        }
+                    }
                 ]
             },
-
             { // Loading Fonts
                 test: /\.(woff|woff2|ttf)$/,
                 use: [
                     {
-                        loader: 'file-loader', options: {
-                            filename: devMode ? '[path][name].[ext]' : '[hash].[ext]',
+                        loader: 'file-loader',
+                        options: {
+                            name() {
+                                if (devMode) {
+                                    return '[name].[ext]';
+                                }
+                                return '[name].[ext]?[hash]';
+                            },
                             outputPath: 'fonts/'
                         }
                     }
@@ -106,18 +139,20 @@ module.exports = {
             }
         ]
     },
-
     plugins: [
         new CleanWebpackPlugin([
-            'dist/js',
-            'dist/css',
-            'dist/fonts',
-            'dist/images',
-            'dist/*.html',
+            'build'
         ]),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        })
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
+        new CopyWebpackPlugin([
+            {from: 'public'}
+        ])
     ]
 };
 
@@ -127,25 +162,28 @@ const templates = glob.sync('./src/*.html').map(function (val) {
 
 for (let i = 0; i < templates.length; i++) {
     module.exports.plugins.push(new HtmlWebpackPlugin({
-        filename: `${templates[i]}.html`,
-        template: `./src/${templates[i]}.html`,
-        chunks: [templates[i]]
-    })
-    )
+            filename: `${templates[i]}.html`,
+            template: `./src/${templates[i]}.html`,
+            chunks: [templates[i]]
+        })
+    );
 }
 
-if (devMode) { // Development mode configuration
+if (devMode) { // Development
+
     module.exports = merge(module.exports, {
         devServer: {
             compress: true,
-            contentBase: path.join(__dirname, 'dist'),
+            contentBase: path.join(__dirname, 'build'),
             watchContentBase: true,
             watchOptions: {
                 poll: true
             }
         }
-    })
-} else { // Production mode configuration
+    });
+
+} else { // Production
+
     module.exports = merge(module.exports, {
         optimization: {
             minimizer: [
@@ -154,7 +192,7 @@ if (devMode) { // Development mode configuration
                     parallel: true,
                     uglifyOptions: {
                         output: {
-                            comments: false,
+                            comments: false
                         },
                         compress: {
                             unused: true,
@@ -165,15 +203,15 @@ if (devMode) { // Development mode configuration
                 }),
                 new OptimizeCSSAssetsPlugin({
                     cssProcessorPluginOptions: {
-                        preset: ['default', { discardComments: { removeAll: true } }],
+                        preset: ['default', {discardComments: {removeAll: true}}]
                     }
                 })
             ]
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: devMode ? 'css/[name].css' : 'css/[name].[hash].css',
+                filename: devMode ? 'css/[name].css' : 'css/[name].css?[hash]'
             })
         ]
-    })
+    });
 }

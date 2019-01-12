@@ -1,0 +1,56 @@
+.alert {
+    position: relative;
+    @include set-in-rem(margin, 0 auto 16);
+    @include set-in-rem(padding, 10 16);
+    @include font-size(15);
+    border: 1px solid transparent;
+
+    .link {
+        font-family: $base-font-bold;
+        color: inherit;
+        text-decoration: underline;
+    }
+
+    &__close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include set-in-rem(padding, 8 12);
+        @include font-size(24, 1);
+        color: inherit;
+        opacity: .5;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &--closeable {
+        @include set-in-rem(padding-right, 50);
+    }
+
+    &--success {
+        color: $success;
+        background-color: lighten($success, 40%);
+        border-color: lighten($success, 30%);
+    }
+
+    &--warning {
+        color: $warning;
+        background-color: lighten($warning, 32%);
+        border-color: lighten($warning, 22%);
+    }
+
+    &--error {
+        color: $danger;
+        background-color: lighten($danger, 24%);
+        border-color: lighten($danger, 19%);
+    }
+
+    &--info {
+        color: $info;
+        background-color: lighten($info, 36%);
+        border-color: lighten($info, 26%);
+    }
+}
