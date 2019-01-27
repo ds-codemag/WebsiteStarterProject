@@ -104,7 +104,7 @@ module.exports = {
                                 }
                                 return '[name].[ext]?[hash]';
                             },
-                            outputPath: 'images/'
+                            outputPath: devMode ? 'images/' : '/images/'
                         }
                     }, {
                         loader: 'image-webpack-loader',
@@ -132,7 +132,7 @@ module.exports = {
                                 }
                                 return '[name].[ext]?[hash]';
                             },
-                            outputPath: 'fonts/'
+                            outputPath: devMode ? 'fonts/' : '/fonts/'
                         }
                     }
                 ]
