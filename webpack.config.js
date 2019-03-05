@@ -151,7 +151,7 @@ module.exports = {
             jQuery: 'jquery'
         }),
         new CopyWebpackPlugin([
-            {from: 'public'}
+            {from: 'static'}
         ])
     ]
 };
