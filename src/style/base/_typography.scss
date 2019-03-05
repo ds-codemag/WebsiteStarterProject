@@ -1,181 +1,91 @@
 // -----------------------------------------------------------------------------
 // Typography
 //
-// - Basic Typography
-// - Custom Typography
+// Based on Bootstrap 4.3.1 and Normalize.css 8.0.1.
 // -----------------------------------------------------------------------------
 
-// ------------------------------------------------------------ Basic Typography
-// Headings
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-    @include set-in-rem(margin, 0 0 24);
-    font-family: $heading-font;
-    line-height: $heading-line-height;
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+    margin: 0 0 1.5rem;
+    font-family: $headings-font-family;
     font-weight: normal;
+    line-height: $headings-line-height;
 }
 
 h1, .h1 {
-    font-size: $h1-size / $font-size + rem;
+    font-size: $h1-font-size;
 }
 
 h2, .h2 {
-    font-size: $h2-size / $font-size + rem;
+    font-size: $h2-font-size;
 }
 
 h3, .h3 {
-    font-size: $h3-size / $font-size + rem;
+    font-size: $h3-font-size;
 }
 
 h4, .h4 {
-    font-size: $h4-size / $font-size + rem;
+    font-size: $h4-font-size;
 }
 
 h5, .h5 {
-    font-size: $h5-size / $font-size + rem;
+    font-size: $h5-font-size;
 }
 
 h6, .h6 {
-    font-size: $h6-size / $font-size + rem;
+    font-size: $h6-font-size;
 }
 
-// Horizontal line
-hr {
-    box-sizing: content-box;
-    width: 100%;
-    height: 0;
-    @include set-in-rem(margin, 24 0);
-    overflow: visible;
-    border: none;
-    border-top: 1px solid $border;
-}
-
-// Paragraph
 p {
-    max-width: 100%;
-    @include set-in-rem(margin, 0 0 24);
+    margin: 0 0 1.5rem;
 }
 
-// Links
-a {
-    background-color: transparent;
-    outline: none;
-    color: inherit;
-    text-decoration: none;
-
-    &.link {
-        color: $primary;
-
-        &:hover {
-            opacity: .75;
-        }
-    }
+abbr[title],
+abbr[data-original-title] {
+    text-decoration: dotted;
+    text-decoration: underline dotted;
+    cursor: help;
+    border-bottom: 0;
+    text-decoration-skip-ink: none;
 }
 
-// Code
-pre,
-code,
-kbd,
-samp {
-    font-family: monospace, monospace;
-    font-size: 1em;
+address {
+    margin: 0 0 1.5rem;
+    font-style: normal;
+    line-height: inherit;
 }
 
-code {
-    word-break: break-word;
-    opacity: .75;
-
-    a > & {
-        color: inherit;
-    }
-}
-
-kbd {
-    padding: .2rem .4rem;
-    background-color: $text;
-    border-radius: 3px;
-    color: $white;
-    font-size: 87.5%;
-
-    kbd {
-        padding: 0;
-        font-family: $base-font-bold;
-        font-size: 100%;
-    }
-}
-
-pre {
-    display: block;
-    @include set-in-rem(margin, 0 0 24);
-    overflow-y: auto;
-
-    code {
-        word-break: normal;
-    }
-}
-
-// Lists
 ol,
 ul,
 dl {
-    @include set-in-rem(margin, 0 0 24);
-
-    ol,
-    ul,
-    dl {
-        margin: 0;
-    }
+    margin: 0 0 1.5rem
 }
 
-ol,
-ul {
-    padding: 0 0 0 1.125em;
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+    margin: 0;
 }
 
 dt {
-    font-family: $base-font-bold;
+    font-family: $primary-font-bold;
     font-weight: normal;
 }
 
 dd {
-    @include set-in-rem(margin, 0 0 8);
-}
-
-// Table
-caption {
-    @include set-in-rem(padding, 10 0);
-    text-align: left;
-    caption-side: bottom;
-}
-
-th {
-    text-align: inherit;
-}
-
-// Semantic elements
-abbr[title],
-abbr[data-original-title] {
-    border-bottom: none;
-    text-decoration: underline dotted;
-    text-decoration-skip-ink: none;
-    cursor: help;
+    margin-bottom: .5rem;
+    margin-left: 0;
 }
 
 b,
 strong {
-    font-family: $base-font-bold;
+    font-family: $primary-font-bold;
     font-weight: normal;
-}
-
-small,
-.small {
-    font-size: 80%;
-}
-
-mark,
-.mark {
-    padding: .25em;
-    background-color: $primary;
 }
 
 sub,
@@ -186,35 +96,58 @@ sup {
     vertical-align: baseline;
 }
 
-sub {
-    bottom: -0.25em;
+sub { bottom: -.25em; }
+sup { top: -.5em; }
+
+a {
+    color: $primary;
+    text-decoration: none;
+    background-color: transparent;
+
+    &:hover {
+        color: darken($primary, 15%);
+        text-decoration: underline;
+    }
 }
 
-sup {
-    top: -0.5em;
+a:not([href]):not([tabindex]) {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    &:focus {
+        outline: 0;
+    }
 }
 
-dfn {
-    font-style: italic;
+small,
+.small {
+    font-size: $small-font-size;
+    font-weight: normal;
 }
 
-// Address
-address {
-    @include set-in-rem(margin, 0 0 24);
-    font-style: normal;
-    line-height: inherit;
+mark,
+.mark {
+    padding: .2em;
+    background-color: $yellow;
 }
 
-// Blockquote
 blockquote,
 .blockquote {
-    max-width: 100%;
-    @include set-in-rem(margin, 0 0 24);
+    margin: 0 0 1.5rem;
+    font-size: $font-size-base * 1.25;
+}
 
+.blockquote {
     &__footer {
         display: block;
-        font-size: 80%;
-        opacity: .75;
+        font-size: $font-size-base;
+        color: $gray-600;
 
         &::before {
             content: "\2014\00A0";
@@ -222,4 +155,53 @@ blockquote,
     }
 }
 
-// ----------------------------------------------------------- Custom Typography
+pre,
+code,
+kbd,
+samp {
+    font-family: monospace, monospace;
+}
+
+code {
+    font-size: 87.5%;
+    color: $pink;
+    word-break: break-word;
+
+    a > & {
+        color: inherit;
+    }
+}
+
+kbd {
+
+    padding: .2rem .4rem;
+    font-size: 87.5%;
+    color: $white;
+    background-color: $gray-900;
+    border-radius: .2rem;
+
+    kbd {
+        padding: 0;
+        font-family: $primary-font-bold;
+        font-size: 100%;
+    }
+}
+
+pre {
+    display: block;
+    margin: 0 0 1.5rem;
+    font-size: 87.5%;
+    color: $gray-900;
+    overflow: auto;
+
+    code {
+        font-size: inherit;
+        color: inherit;
+        word-break: normal;
+    }
+}
+
+.pre-scrollable {
+    max-height: 340px;
+    overflow-y: scroll;
+}
