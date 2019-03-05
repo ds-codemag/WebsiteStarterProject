@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------------
+// Functions
+// -----------------------------------------------------------------------------
+
+// From Bootstrap for grid system.
+//
 // Returns name of the next breakpoint, or null for the last breakpoint.
 // Example: breakpoint-next(sm) => md
 @function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {

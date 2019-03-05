@@ -1,6 +1,7 @@
 // -----------------------------------------------------------------------------
 // Mixins
 //
+// --- From Bootstrap ---
 // - media-max-breakpoint
 // - media-min-breakpoint
 // - media-between-breakpoints
@@ -9,14 +10,15 @@
 // - text-hidden
 // - text-truncate
 // - clearfix
-// - font-size
-// - set-in-rem
-// - object-fit (IE support)
-// - ul-reset
 // - gradient-x
 // - gradient-y
 // - gradient-directional
 // - gradient-radial
+// --- Others ---
+// - font-size
+// - set-in-rem
+// - object-fit (IE support)
+// - ul-reset
 // -----------------------------------------------------------------------------
 
 // -------------------------------------------------------- media-max-breakpoint
@@ -114,9 +116,34 @@
     }
 }
 
+// ------------------------------------------------------------------ gradient-x
+@mixin gradient-x($start-color: $black, $end-color: $white, $start-percent: 0%, $end-percent: 100%) {
+    background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent);
+    background-repeat: repeat-x;
+}
+
+// ------------------------------------------------------------------ gradient-y
+@mixin gradient-y($start-color: $black, $end-color: $white, $start-percent: 0%, $end-percent: 100%) {
+    background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
+    background-repeat: repeat-x;
+}
+
+// -------------------------------------------------------- gradient-directional
+@mixin gradient-directional($start-color: $black, $end-color: $white, $deg: 45deg) {
+    background-image: linear-gradient($deg, $start-color, $end-color);
+    background-repeat: repeat-x;
+}
+
+// ------------------------------------------------------------- gradient-radial
+@mixin gradient-radial($inner-color: $black, $outer-color: $white) {
+    background-image: radial-gradient(circle, $inner-color, $outer-color);
+    background-repeat: no-repeat;
+}
+
+
 // ------------------------------------------------------------------- font-size
-@mixin font-size($size-value: $font-size, $line: 0) {
-    font-size: ($size-value / $font-size) + rem;
+@mixin font-size($size-value: $font-size-base, $line: 0) {
+    font-size: ($size-value / $font-size-base) + rem;
     @if $line != 0 {
         line-height: $line
     };
@@ -129,7 +156,7 @@
         @if $value == 0 or $value == auto {
             $rem: append($rem, $value);
         } @else {
-            $rem: append($rem, ($value / $font-size * 1rem));
+            $rem: append($rem, ($value / $font-size-base * 1rem));
         }
     }
     #{$property}: $rem;
@@ -153,28 +180,4 @@
     margin: 0;
     padding: 0;
     list-style: none url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=);
-}
-
-// ------------------------------------------------------------------ gradient-x
-@mixin gradient-x($start-color: $black, $end-color: $white, $start-percent: 0%, $end-percent: 100%) {
-    background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent);
-    background-repeat: repeat-x;
-}
-
-// ------------------------------------------------------------------ gradient-y
-@mixin gradient-y($start-color: $black, $end-color: $white, $start-percent: 0%, $end-percent: 100%) {
-    background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
-    background-repeat: repeat-x;
-}
-
-// -------------------------------------------------------- gradient-directional
-@mixin gradient-directional($start-color: $black, $end-color: $white, $deg: 45deg) {
-    background-image: linear-gradient($deg, $start-color, $end-color);
-    background-repeat: repeat-x;
-}
-
-// ------------------------------------------------------------- gradient-radial
-@mixin gradient-radial($inner-color: $black, $outer-color: $white) {
-    background-image: radial-gradient(circle, $inner-color, $outer-color);
-    background-repeat: no-repeat;
 }

@@ -1,7 +1,9 @@
 // -----------------------------------------------------------------------------
 // Print styles
-//
-// Src: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css
+
+// Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css
+
+// Print styles.
 // Inlined to avoid the additional HTTP request:
 // https://www.phpied.com/delay-loading-your-print-css/
 // -----------------------------------------------------------------------------
@@ -11,7 +13,7 @@
         *,
         *::before,
         *::after {
-            color: #000000 !important; // Black prints faster
+            color: $black !important;
             text-shadow: none !important;
             background: transparent !important;
             box-shadow: none !important;
@@ -19,23 +21,21 @@
 
         a {
             &:not(.btn) {
-                text-decoration: underline !important;
-            }
-
-            &[href]::after {
-                content: " (" attr(href) ")" !important;
-            }
-
-            // Don't show links that are fragment identifiers,
-            // or use the `javascript:` pseudo protocol
-            &[href^="#"]::after,
-            &[href^="javascript:"]::after {
-                content: "" !important;
+                text-decoration: underline;
             }
         }
 
+        a[href]::after {
+          content: " (" attr(href) ")";
+        }
+
         abbr[title]::after {
-            content: " (" attr(title) ")" !important;
+            content: " (" attr(title) ")";
+        }
+
+        a[href^="#"]::after,
+        a[href^="javascript:"]::after {
+         content: "";
         }
 
         pre {
@@ -44,80 +44,41 @@
 
         pre,
         blockquote {
-            border: 1px solid #ADB5BD !important;
-            page-break-inside: avoid !important;
+            border: 1px solid $gray-500;
+            page-break-inside: avoid;
         }
 
-        // Printing Tables:
-        // http://css-discuss.incutio.com/wiki/Printing_Tables
         thead {
-            display: table-header-group !important;
+            display: table-header-group;
         }
 
         tr,
         img {
-            page-break-inside: avoid !important;
+            page-break-inside: avoid;
         }
 
         p,
         h2,
         h3 {
-            orphans: 3 !important;
-            widows: 3 !important;
+            orphans: 3;
+            widows: 3;
         }
 
         h2,
         h3 {
-            page-break-after: avoid !important;
+            page-break-after: avoid;
         }
 
-        // Specify a size and min-width to make printing closer across browsers.
-        // We don't set margin here because it breaks `size` in Chrome. We also
-        // don't use `!important` on `size` as it breaks in Chrome.
         @page {
-            size: a4;
+            size: A4;
         }
 
-        body,
+        body {
+            min-width: map-get($grid-breakpoints, "lg") !important;
+        }
+
         .container {
-            min-width: 992px !important;
-        }
-
-        // Utilities for toggling `display` in print
-        .d-print-none {
-            display: none !important;
-        }
-
-        .d-print-inline {
-            display: inline !important;
-        }
-
-        .d-print-inline-block {
-            display: inline-block !important;
-        }
-
-        .d-print-block {
-            display: block !important;
-        }
-
-        .d-print-table {
-            display: table !important;
-        }
-
-        .d-print-table-row {
-            display: table-row !important;
-        }
-
-        .d-print-table-cell {
-            display: table-cell !important;
-        }
-
-        .d-print-flex {
-            display: flex !important;
-        }
-
-        .d-print-inline-flex {
-            display: inline-flex !important;
+            min-width: map-get($grid-breakpoints, "lg") !important;
         }
     }
 }
