@@ -13,12 +13,11 @@ $primary-font-light: -apple-system, BlinkMacSystemFont, "OpenSans Light", sans-s
 $primary-font-regular: -apple-system, BlinkMacSystemFont, "OpenSans Regular", sans-serif !default;
 $primary-font-bold: -apple-system, BlinkMacSystemFont, "OpenSans Bold", sans-serif !default;
 
-$font-size-base:        1rem !default;
+$font-size-base:        16 !default;
 $small-font-size:       80% !default;
-$line-height-base:      1.5 !default;
+$line-height-base:      24 !default;
 
 $headings-font-family:  $primary-font-bold !default;
-$headings-line-height:  1.2 !default;
 
 $h1-font-size:          $font-size-base * 2.5 !default;
 $h2-font-size:          $font-size-base * 2 !default;

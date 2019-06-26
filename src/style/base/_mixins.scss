@@ -142,11 +142,9 @@
 
 
 // ------------------------------------------------------------------- font-size
-@mixin font-size($size-value: $font-size-base, $line: 0) {
-    font-size: ($size-value / $font-size-base) + rem;
-    @if $line != 0 {
-        line-height: $line
-    };
+@mixin font-size($size-value: $font-size-base, $line: $line-height-base) {
+    font-size: $size-value / $font-size-base + rem;
+    line-height: $line / $font-size-base + rem;
 }
 
 // ------------------------------------------------------------------ set-in-rem

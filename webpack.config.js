@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Variables
@@ -27,6 +27,9 @@ module.exports = {
     target: 'web',
     mode: process.env.NODE_ENV,
     devtool: devMode ? 'inline-source-map' : 'none',
+    externals: {
+        jquery: 'jQuery'
+    },
     entry: entry(),
     output: {
         filename: devMode ? 'js/[name].bundle.js' : 'js/[name].bundle.js?[hash]',
@@ -121,7 +124,7 @@ module.exports = {
                 ]
             },
             { // Loading Fonts
-                test: /\.(woff|woff2|ttf)$/,
+                test: /\.(ttf|otf|woff|woff2|eot)$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -140,15 +143,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin([
-            'build'
-        ]),
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ['build']
+        }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
         }),
         new CopyWebpackPlugin([
             {from: 'static'}
