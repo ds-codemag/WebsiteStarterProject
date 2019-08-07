@@ -10,182 +10,181 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
-    margin: 0 0 1.5rem;
-    font-family: $headings-font-family;
-    font-weight: normal;
+  margin: 0 0 1.5rem;
+  font-family: $headings-font-family;
+  font-weight: normal;
 }
 
 h1, .h1 {
-    @include font-size($h1-font-size, $line-height-base * 2);
+  @include font-size($h1-font-size, $line-height-base * 2);
 }
 
 h2, .h2 {
-    @include font-size($h2-font-size, $line-height-base * 1.75);
+  @include font-size($h2-font-size, $line-height-base * 1.75);
 }
 
 h3, .h3 {
-    @include font-size($h3-font-size, $line-height-base * 1.5);
+  @include font-size($h3-font-size, $line-height-base * 1.5);
 }
 
 h4, .h4 {
-    @include font-size($h4-font-size, $line-height-base * 1.25);
+  @include font-size($h4-font-size, $line-height-base * 1.25);
 }
 
 h5, .h5 {
-    @include font-size($h5-font-size);
+  @include font-size($h5-font-size);
 }
 
 h6, .h6 {
-    @include font-size($h6-font-size);
+  @include font-size($h6-font-size);
 }
 
 p {
-    margin: 0 0 1.5rem;
+  margin: 0 0 1.5rem;
 }
 
 abbr[title],
 abbr[data-original-title] {
-    text-decoration: dotted;
-    text-decoration: underline dotted;
-    cursor: help;
-    border-bottom: 0;
-    text-decoration-skip-ink: none;
+  text-decoration: dotted;
+  text-decoration: underline dotted;
+  cursor: help;
+  border-bottom: 0;
+  text-decoration-skip-ink: none;
 }
 
 address {
-    margin: 0 0 1.5rem;
-    font-style: normal;
-    line-height: inherit;
+  margin: 0 0 1.5rem;
+  font-style: normal;
+  line-height: inherit;
 }
 
 ol,
 ul,
 dl {
-    margin: 0 0 1.5rem
+  margin: 0 0 1.5rem
 }
 
 ol ol,
 ul ul,
 ol ul,
 ul ol {
-    margin: 0;
+  margin: 0;
 }
 
 dt {
-    font-family: $primary-font-bold;
-    font-weight: normal;
+  font-family: $primary-font-bold;
+  font-weight: normal;
 }
 
 dd {
-    margin-bottom: .5rem;
-    margin-left: 0;
+  margin-bottom: .5rem;
+  margin-left: 0;
 }
 
 b,
 strong {
-    font-family: $primary-font-bold;
-    font-weight: normal;
+  font-family: $primary-font-bold;
+  font-weight: normal;
 }
 
 sub,
 sup {
-    position: relative;
-    font-size: 75%;
-    line-height: 0;
-    vertical-align: baseline;
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
 }
 
 sub { bottom: -.25em; }
 sup { top: -.5em; }
 
 a {
-    color: $primary;
-    text-decoration: none;
-    background-color: transparent;
+  color: $primary;
+  text-decoration: none;
+  background-color: transparent;
+  outline: none;
 
-    &:hover {
-        color: darken($primary, 15%);
-        text-decoration: underline;
-    }
+  &:hover {
+    color: darken($primary, 15%);
+  }
 }
 
 small,
 .small {
-    font-size: $small-font-size;
-    font-weight: normal;
+  font-size: $small-font-size;
+  font-weight: normal;
 }
 
 mark,
 .mark {
-    padding: .2em;
-    background-color: $yellow;
+  padding: .2em;
+  background-color: $yellow;
 }
 
 blockquote,
 .blockquote {
-    margin: 0 0 1.5rem;
-    font-size: $font-size-base * 1.25;
+  margin: 0 0 1.5rem;
+  font-size: $font-size-base * 1.25;
 }
 
 .blockquote {
-    &__footer {
-        display: block;
-        font-size: $font-size-base;
-        color: $gray-600;
+  &__footer {
+    display: block;
+    font-size: $font-size-base;
+    color: $gray-600;
 
-        &::before {
-            content: "\2014\00A0";
-        }
+    &::before {
+      content: "\2014\00A0";
     }
+  }
 }
 
 pre,
 code,
 kbd,
 samp {
-    font-family: monospace, monospace;
+  font-family: monospace, monospace;
 }
 
 code {
-    font-size: 87.5%;
-    color: $pink;
-    word-break: break-word;
+  font-size: 87.5%;
+  color: $pink;
+  word-break: break-word;
 
-    a > & {
-        color: inherit;
-    }
+  a > & {
+    color: inherit;
+  }
 }
 
 kbd {
+  padding: .2rem .4rem;
+  font-size: 87.5%;
+  color: $white;
+  background-color: $gray-900;
+  border-radius: .2rem;
 
-    padding: .2rem .4rem;
-    font-size: 87.5%;
-    color: $white;
-    background-color: $gray-900;
-    border-radius: .2rem;
-
-    kbd {
-        padding: 0;
-        font-family: $primary-font-bold;
-        font-size: 100%;
-    }
+  kbd {
+    padding: 0;
+    font-family: $primary-font-bold;
+    font-size: 100%;
+  }
 }
 
 pre {
-    display: block;
-    margin: 0 0 1.5rem;
-    font-size: 87.5%;
-    color: $gray-900;
-    overflow: auto;
+  display: block;
+  margin: 0 0 1.5rem;
+  font-size: 87.5%;
+  color: $gray-900;
+  overflow: auto;
 
-    code {
-        font-size: inherit;
-        color: inherit;
-        word-break: normal;
-    }
+  code {
+    font-size: inherit;
+    color: inherit;
+    word-break: normal;
+  }
 }
 
 .pre-scrollable {
-    max-height: 340px;
-    overflow-y: scroll;
+  max-height: 340px;
+  overflow-y: scroll;
 }

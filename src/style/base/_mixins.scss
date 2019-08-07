@@ -23,159 +23,159 @@
 
 // -------------------------------------------------------- media-max-breakpoint
 @mixin media-max-breakpoint($value, $breakpoints: $grid-breakpoints) {
-    $max: if(type-of($value) == string, breakpoint-max($value, $breakpoints), $value);
-    @if $max {
-        @media (max-width: $max) {
-            @content;
-        }
-    } @else {
-        @content;
+  $max: if(type-of($value) == string, breakpoint-max($value, $breakpoints), $value);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
     }
+  } @else {
+    @content;
+  }
 }
 
 // -------------------------------------------------------- media-min-breakpoint
 @mixin media-min-breakpoint($value, $breakpoints: $grid-breakpoints) {
-    $min: if(type-of($value) == string, breakpoint-min($value, $breakpoints), $value);
-    @if $min {
-        @media (min-width: $min) {
-            @content;
-        }
-    } @else {
-        @content;
+  $min: if(type-of($value) == string, breakpoint-min($value, $breakpoints), $value);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
     }
+  } @else {
+    @content;
+  }
 }
 
 // --------------------------------------------------- media-between-breakpoints
 @mixin media-between-breakpoints($lower, $upper, $breakpoints: $grid-breakpoints) {
-    $min: if(type-of($lower) == string, breakpoint-min($lower, $breakpoints), $lower);
-    $max: if(type-of($upper) == string, breakpoint-max($upper, $breakpoints), $upper);
+  $min: if(type-of($lower) == string, breakpoint-min($lower, $breakpoints), $lower);
+  $max: if(type-of($upper) == string, breakpoint-max($upper, $breakpoints), $upper);
 
-    @if $min != null and $max != null {
-        @media (min-width: $min) and (max-width: $max) {
-            @content;
-        }
-    } @else if $max == null {
-        @include media-min-breakpoint($lower, $breakpoints) {
-            @content;
-        }
-    } @else if $min == null {
-        @include media-max-breakpoint($upper, $breakpoints) {
-            @content;
-        }
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
     }
+  } @else if $max == null {
+    @include media-min-breakpoint($lower, $breakpoints) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-max-breakpoint($upper, $breakpoints) {
+      @content;
+    }
+  }
 }
 
 // ------------------------------------------------------- media-only-breakpoint
 @mixin media-only-breakpoint($name, $breakpoints: $grid-breakpoints) {
-    $min: breakpoint-min($name, $breakpoints);
-    $max: breakpoint-max($name, $breakpoints);
+  $min: breakpoint-min($name, $breakpoints);
+  $max: breakpoint-max($name, $breakpoints);
 
-    @if $min != null and $max != null {
-        @media (min-width: $min) and (max-width: $max) {
-            @content;
-        }
-    } @else if $max == null {
-        @include media-min-breakpoint($name, $breakpoints) {
-            @content;
-        }
-    } @else if $min == null {
-        @include media-max-breakpoint($name, $breakpoints) {
-            @content;
-        }
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
     }
+  } @else if $max == null {
+    @include media-min-breakpoint($name, $breakpoints) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-max-breakpoint($name, $breakpoints) {
+      @content;
+    }
+  }
 }
 
 // ------------------------------------------------------------------------ size
 @mixin size($width, $height: $width) {
-    width: $width;
-    height: $height;
+  width: $width;
+  height: $height;
 }
 
 // ----------------------------------------------------------------- text-hidden
 @mixin text-hidden() {
-    font: 0/0 a !important;
-    border: none !important;
-    background-color: transparent !important;
-    color: transparent !important;
-    text-shadow: none !important;
+  font: 0/0 a !important;
+  border: none !important;
+  background-color: transparent !important;
+  color: transparent !important;
+  text-shadow: none !important;
 }
 
 // --------------------------------------------------------------- text-truncate
 @mixin text-truncate() {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 // -------------------------------------------------------------------- clearfix
 @mixin clearfix() {
-    &::after {
-        content: '';
-        display: block;
-        clear: both;
-    }
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
 }
 
 // ------------------------------------------------------------------ gradient-x
 @mixin gradient-x($start-color: $black, $end-color: $white, $start-percent: 0%, $end-percent: 100%) {
-    background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent);
-    background-repeat: repeat-x;
+  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent);
+  background-repeat: repeat-x;
 }
 
 // ------------------------------------------------------------------ gradient-y
 @mixin gradient-y($start-color: $black, $end-color: $white, $start-percent: 0%, $end-percent: 100%) {
-    background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
-    background-repeat: repeat-x;
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
+  background-repeat: repeat-x;
 }
 
 // -------------------------------------------------------- gradient-directional
 @mixin gradient-directional($start-color: $black, $end-color: $white, $deg: 45deg) {
-    background-image: linear-gradient($deg, $start-color, $end-color);
-    background-repeat: repeat-x;
+  background-image: linear-gradient($deg, $start-color, $end-color);
+  background-repeat: repeat-x;
 }
 
 // ------------------------------------------------------------- gradient-radial
 @mixin gradient-radial($inner-color: $black, $outer-color: $white) {
-    background-image: radial-gradient(circle, $inner-color, $outer-color);
-    background-repeat: no-repeat;
+  background-image: radial-gradient(circle, $inner-color, $outer-color);
+  background-repeat: no-repeat;
 }
 
 
 // ------------------------------------------------------------------- font-size
 @mixin font-size($size-value: $font-size-base, $line: $line-height-base) {
-    font-size: $size-value / $font-size-base + rem;
-    line-height: $line / $font-size-base + rem;
+  font-size: $size-value / $font-size-base + rem;
+  line-height: $line / $font-size-base + rem;
 }
 
 // ------------------------------------------------------------------ set-in-rem
 @mixin set-in-rem($property, $values) {
-    $rem: ();
-    @each $value in $values {
-        @if $value == 0 or $value == auto {
-            $rem: append($rem, $value);
-        } @else {
-            $rem: append($rem, ($value / $font-size-base * 1rem));
-        }
+  $rem: ();
+  @each $value in $values {
+    @if $value == 0 or $value == auto {
+      $rem: append($rem, $value);
+    } @else {
+      $rem: append($rem, ($value / $font-size-base * 1rem));
     }
-    #{$property}: $rem;
+  }
+  #{$property}: $rem;
 }
 
 // ----------------------------------------------------- object-fit (IE support)
 @mixin object-fit($fit: fill, $position: null) {
-    -o-object-fit: $fit;
-    object-fit: $fit;
-    @if $position {
-        -o-object-position: $position;
-        object-position: $position;
-        font-family: 'object-fit: #{$fit}; object-position: #{$position}';
-    } @else {
-        font-family: 'object-fit: #{$fit}';
-    }
+  -o-object-fit: $fit;
+  object-fit: $fit;
+  @if $position {
+    -o-object-position: $position;
+    object-position: $position;
+    font-family: 'object-fit: #{$fit}; object-position: #{$position}';
+  } @else {
+    font-family: 'object-fit: #{$fit}';
+  }
 }
 
 // -------------------------------------------------------------------- ul-reset
 @mixin ul-reset {
-    margin: 0;
-    padding: 0;
-    list-style: none url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=);
+  margin: 0;
+  padding: 0;
+  list-style: none url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=);
 }

@@ -7,33 +7,33 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    width: 100%;
-    max-width: 100%;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 html {
-    font-family: sans-serif;
-    font-size: $font-size-base * 100% / 16;
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba($black, 0);
+  font-family: sans-serif;
+  font-size: $font-size-base * 100% / 16;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba($black, 0);
 }
 
 body {
-    background-color: $body-bg;
-    font-family: $primary-font-regular;
-    @include font-size($font-size-base);
-    color: $body-color;
-    text-align: left;
+  background-color: $body-bg;
+  font-family: $primary-font-regular;
+  @include font-size($font-size-base);
+  color: $body-color;
+  text-align: left;
 }
 
 nav,
@@ -46,63 +46,63 @@ hgroup,
 section,
 article,
 figcaption {
-    display: block;
+  display: block;
 }
 
 [tabindex="-1"]:focus {
-    outline: 0 !important;
+  outline: 0 !important;
 }
 
 hr {
-    box-sizing: content-box;
-    height: 0;
-    overflow: visible;
-    margin: 1.5rem 0;
-    border: none;
-    border-top: 1px solid $gray-400;
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+  margin: 1.5rem 0;
+  border: none;
+  border-top: 1px solid $gray-400;
 }
 
 figure {
-    margin: 0 0 1.5rem;
+  margin: 0 0 1.5rem;
 }
 
 img {
-    vertical-align: middle;
-    border-style: none;
+  vertical-align: middle;
+  border-style: none;
 }
 
 svg {
-    overflow: hidden;
-    vertical-align: middle;
+  overflow: hidden;
+  vertical-align: middle;
 }
 
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 caption {
-    padding: .625rem 0 1.5rem;
-    color: $body-color;
-    text-align: left;
-    caption-side: bottom;
+  padding: .625rem 0 1.5rem;
+  color: $body-color;
+  text-align: left;
+  caption-side: bottom;
 }
 
 th {
-    text-align: inherit;
+  text-align: inherit;
 }
 
 label {
-    display: inline-block;
-    margin-bottom: .5rem;
+  display: inline-block;
+  margin-bottom: .5rem;
 }
 
 button {
-    border-radius: 0;
-    white-space: nowrap;
+  border-radius: 0;
+  white-space: nowrap;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 input,
@@ -110,134 +110,134 @@ button,
 select,
 optgroup,
 textarea {
-    margin: 0;
-    font-family: inherit;
-    font-size: 100%;
-    line-height: 1.15;
+  margin: 0;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
 }
 
 button,
 input {
-    overflow: visible;
+  overflow: visible;
 }
 
 button,
 select {
-    text-transform: none;
+  text-transform: none;
 }
 
 select {
-    word-wrap: normal;
+  word-wrap: normal;
 }
 
 button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
-    -webkit-appearance: button;
+  -webkit-appearance: button;
 }
 
 button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
-    &:not(:disabled) {
-        cursor: pointer;
-    }
+  &:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
-    padding: 0;
-    border-style: none;
-    outline: 1px dotted ButtonText;
+  padding: 0;
+  border-style: none;
+  outline: 1px dotted ButtonText;
 }
 
 input[type="radio"],
 input[type="checkbox"] {
-    box-sizing: border-box;
-    padding: 0;
+  box-sizing: border-box;
+  padding: 0;
 }
 
 input[type="date"],
 input[type="time"],
 input[type="datetime-local"],
 input[type="month"] {
-    -webkit-appearance: listbox;
+  -webkit-appearance: listbox;
 }
 
 textarea {
-    overflow: auto;
-    resize: vertical;
+  overflow: auto;
+  resize: vertical;
 }
 
 fieldset {
-    min-width: 0;
-    padding: 0;
-    margin: 0;
-    border: 0;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 legend {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    margin-bottom: .5rem;
-    font-size: $font-size-base * 1.25;
-    line-height: inherit;
-    color: inherit;
-    white-space: normal;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin-bottom: .5rem;
+  font-size: $font-size-base * 1.25;
+  line-height: inherit;
+  color: inherit;
+  white-space: normal;
 }
 
 progress {
-    vertical-align: baseline;
+  vertical-align: baseline;
 }
 
 [type="checkbox"],
 [type="radio"] {
-    box-sizing: border-box;
-    padding: 0;
+  box-sizing: border-box;
+  padding: 0;
 }
 
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
-    height: auto;
+  height: auto;
 }
 
 [type="search"] {
-    outline-offset: -2px;
-    -webkit-appearance: none;
+  outline-offset: -2px;
+  -webkit-appearance: none;
 }
 
 [type="search"]::-webkit-search-decoration {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 ::-webkit-file-upload-button {
-    font: inherit;
-    -webkit-appearance: button;
+  font: inherit;
+  -webkit-appearance: button;
 }
 
 details {
-    display: block;
+  display: block;
 }
 
 output {
-    display: inline-block;
+  display: inline-block;
 }
 
 summary {
-    display: list-item;
-    cursor: pointer;
+  display: list-item;
+  cursor: pointer;
 }
 
 template {
-    display: none;
+  display: none;
 }
 
 [hidden] {
-    display: none !important;
+  display: none !important;
 }

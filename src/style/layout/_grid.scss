@@ -6,134 +6,134 @@
 $prev-key: null;
 $prev-num: null;
 @each $key, $num in $grid-breakpoints {
-    @if $prev-num == null {
-        // Do nothing
-    } @else if $prev-num >= $num {
-        @warn 'Breakpoints map must be in ascending order, but \'#{$key}\' has value #{$num} which isn\'t greater than #{$prev-num} in \'#{$prev-key}\'!';
-    }
-    $prev-key: $key;
-    $prev-num: $num;
+  @if $prev-num == null {
+    // Do nothing
+  } @else if $prev-num >= $num {
+    @warn 'Breakpoints map must be in ascending order, but \'#{$key}\' has value #{$num} which isn\'t greater than #{$prev-num} in \'#{$prev-key}\'!';
+  }
+  $prev-key: $key;
+  $prev-num: $num;
 }
 
 // Check if the breakpoints starts from 0
 $values: map-values($grid-breakpoints);
 $first-value: nth($values, 1);
 @if $first-value != 0 {
-    @warn 'First breakpoint must start at 0, but starts at #{$first-value}.';
+  @warn 'First breakpoint must start at 0, but starts at #{$first-value}.';
 }
 
 // ------------------------------------------------------------- Fluid container
 // Full width layout container
 %container-fluid,
 .container-fluid {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: ($grid-gutter-width / 2);
-    padding-left: ($grid-gutter-width / 2);
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: ($grid-gutter-width / 2);
+  padding-left: ($grid-gutter-width / 2);
 }
 
 // ------------------------------------------------------------------- Container
 // Container with max width for different screen sizes
 .container {
-    @extend %container-fluid;
-    @each $breakpoint, $container-max-width in $container-max-widths {
-        @include media-min-breakpoint($breakpoint, $grid-breakpoints) {
-            max-width: $container-max-width;
-        }
+  @extend %container-fluid;
+  @each $breakpoint, $container-max-width in $container-max-widths {
+    @include media-min-breakpoint($breakpoint, $grid-breakpoints) {
+      max-width: $container-max-width;
     }
+  }
 }
 
 // ------------------------------------------------------------------------- Row
 // Displays grid and clears left and right padding
 .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: ($grid-gutter-width / -2);
-    margin-left: ($grid-gutter-width / -2);
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: ($grid-gutter-width / -2);
+  margin-left: ($grid-gutter-width / -2);
 }
 
 // Remove the negative margin from default .row,
 // then the horizontal padding from all immediate
 // children columns (to prevent runaway style inheritance)
 .no-gutters {
-    margin-right: 0;
-    margin-left: 0;
+  margin-right: 0;
+  margin-left: 0;
 
-    > .col,
-    > [class*='col-'] {
-        padding-right: 0;
-        padding-left: 0;
-    }
+  > .col,
+  > [class*='col-'] {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 
 // --------------------------------------------------------------------- Columns
 %grid-column { // Common properties for all breakpoints
-    position: relative;
-    width: 100%;
-    min-height: 1px; // Prevent columns from collapsing when empty
-    padding-right: ($grid-gutter-width / 2);
-    padding-left: ($grid-gutter-width / 2);
+  position: relative;
+  width: 100%;
+  min-height: 1px; // Prevent columns from collapsing when empty
+  padding-right: ($grid-gutter-width / 2);
+  padding-left: ($grid-gutter-width / 2);
 }
 
 @each $breakpoint in map-keys($grid-breakpoints) {
-    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-    // Allow columns to stretch full width below their breakpoints
-    @for $i from 1 through $grid-columns {
-        .col#{$infix}-#{$i} {
-            @extend %grid-column;
-        }
+  // Allow columns to stretch full width below their breakpoints
+  @for $i from 1 through $grid-columns {
+    .col#{$infix}-#{$i} {
+      @extend %grid-column;
+    }
+  }
+
+  .col#{$infix},
+  .col#{$infix}-auto {
+    @extend %grid-column;
+  }
+
+  @include media-min-breakpoint($breakpoint, $grid-breakpoints) {
+    // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+    .col#{$infix} {
+      flex-basis: 0;
+      flex-grow: 1;
+      max-width: 100%;
     }
 
-    .col#{$infix},
     .col#{$infix}-auto {
-        @extend %grid-column;
+      flex: 0 0 auto;
+      width: auto;
+      max-width: 100%; // Reset earlier grid tiers
     }
 
-    @include media-min-breakpoint($breakpoint, $grid-breakpoints) {
-        // Provide basic `.col-{bp}` classes for equal-width flexbox columns
-        .col#{$infix} {
-            flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-        }
-
-        .col#{$infix}-auto {
-            flex: 0 0 auto;
-            width: auto;
-            max-width: 100%; // Reset earlier grid tiers
-        }
-
-        @for $i from 1 through $grid-columns {
-            .col#{$infix}-#{$i} {
-                flex: 0 0 percentage($i / $grid-columns);
-                max-width: percentage($i / $grid-columns);
-            }
-        }
-
-        .order#{$infix}-first {
-            order: -1;
-        }
-
-        .order#{$infix}-last {
-            order: $grid-columns + 1;
-        }
-
-        @for $i from 0 through $grid-columns {
-            .order#{$infix}-#{$i} {
-                order: $i;
-            }
-        }
-
-        // `$columns - 1` because offsetting by the width of an entire row isn't possible
-        @for $i from 0 through ($grid-columns - 1) {
-            @if not ($infix == '' and $i == 0) {
-                // Avoid emitting useless .offset-0
-                .offset#{$infix}-#{$i} {
-                    margin-left: if(($i / $grid-columns) == 0, 0, percentage($i / $grid-columns));
-                }
-            }
-        }
+    @for $i from 1 through $grid-columns {
+      .col#{$infix}-#{$i} {
+        flex: 0 0 percentage($i / $grid-columns);
+        max-width: percentage($i / $grid-columns);
+      }
     }
+
+    .order#{$infix}-first {
+      order: -1;
+    }
+
+    .order#{$infix}-last {
+      order: $grid-columns + 1;
+    }
+
+    @for $i from 0 through $grid-columns {
+      .order#{$infix}-#{$i} {
+        order: $i;
+      }
+    }
+
+    // `$columns - 1` because offsetting by the width of an entire row isn't possible
+    @for $i from 0 through ($grid-columns - 1) {
+      @if not ($infix == '' and $i == 0) {
+        // Avoid emitting useless .offset-0
+        .offset#{$infix}-#{$i} {
+          margin-left: if(($i / $grid-columns) == 0, 0, percentage($i / $grid-columns));
+        }
+      }
+    }
+  }
 }
