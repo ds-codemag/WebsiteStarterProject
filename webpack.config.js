@@ -52,26 +52,15 @@ const entry = () => {
         { // Loading CSS
           test: /\.css$/,
           use: [
-            devMode ? {
-              loader: 'style-loader',
-              options: {sourceMap: true}
-            } : MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
+            devMode ? 'style-loader' : MiniCssExtractPlugin.loader, {
+              loader: 'css-loader', options: { sourceMap: true }
             }
           ]
         },
         { // Loading SCSS
           test: /\.scss$/,
           use: [
-            devMode ? {
-              loader: 'style-loader',
-              options: {sourceMap: true}
-            } : MiniCssExtractPlugin.loader,
-            {
+            devMode ? 'style-loader' : MiniCssExtractPlugin.loader, {
               loader: 'css-loader',
               options: {
                 sourceMap: true,
